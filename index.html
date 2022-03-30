@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="stylesheet" href="reset.css" />
+    <link rel="stylesheet" href="style.css" />
+    <title>HTC - Jogo</title>
+  </head>
+  <body>
+    <h1 class="winner-title">Jogadora 1 ganhou!</h1>
+
+      <section class="scoreboard-box">
+        <span class="scoreboard-player">Jogadora 1</span>
+        <strong class="scoreboard-score">01</strong>
+        <strong class="scoreboard-vs">vs</strong>
+        <strong class="scoreboard-score">01</strong>
+        <span class="scoreboard-player">Jogadora 2</span>
+      </section>
+
+    <section class="battle-field">
+      <div class="button-box">
+        <button class="button button-play button-stone-player-1">Pedra</button>
+        <button class="button button-play button-paper-player-1">Papel</button>
+        <button class="button button-play button-scissors-player-1">
+          Tesoura
+        </button>
+      </div>
+      <div class="field-box">
+        <div class="game-field field-player-1"></div>
+        <strong class="field-vs">vs</strong>
+        <div class="game-field field-player-2"></div>
+      </div>
+      <div class="button-box">
+        <button class="button button-play button-stone-player-2">Pedra</button>
+        <button class="button button-play button-paper-player-2">Papel</button>
+        <button class="button button-play button-scissors-player-2">
+          Tesoura
+        </button>
+      </div>
+    </section>
+
+    <section class="configuracao">
+      <button class="button button-start">Iniciar</button>
+      <button class="button button-reset">Resetar</button>
+    </section>
+
+    <script src="./index.js"></script>
+  </body>
+</html>

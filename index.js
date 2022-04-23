@@ -71,7 +71,6 @@ function addPoint(winnerPoint) {
     if (winnerPoint == 2) {
         score2 += 1
     }
-
 }
 
 function resetBattlesField () {
@@ -163,6 +162,5 @@ $startsButton.addEventListener('click', function() {
     } else {
         $startsButton.innerHTML = 'Iniciar'
     }
-    
 })
 

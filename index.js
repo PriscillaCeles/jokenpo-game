@@ -1,4 +1,4 @@
-// alert()
+// alert('')
 
 const $stoneButton1 = document.querySelector ('.button-stone-player-1')
 const $paperButton1 = document.querySelector ('.button-paper-player-1')
@@ -9,6 +9,7 @@ const $paperButton2 = document.querySelector ('.button-paper-player-2')
 const $scissorsButton2 = document.querySelector ('.button-scissors-player-2')
 
 const $restartsButton = document.querySelector ('.button-reset')
+const $startsButton = document.querySelector ('.button-start')
 
 const $fieldPlayer1 = document.querySelector('.field-player-1')
 const $fieldPlayer2 = document.querySelector('.field-player-2')
@@ -23,7 +24,9 @@ let score2 = 0
 
 let movePlayer1 = ''
 let movePlayer2 = ''
+
 let gameResult = null
+let gameStart = false
 
 
 function verifyGame() {
@@ -41,72 +44,125 @@ function printGameResult() {
         $winnerTitle.innerHTML = 'Empatou!'
     } else if (gameResult == 1){
         $winnerTitle.innerHTML = 'Jogadora 1 ganhou!'
-        score1 = score1 + 1
-        if (score1 <10){
-            $scorePlayer1.innerHTML = "0" + score1
-        }else {
-            $scorePlayer1.innerHTML = score1
-        }
     } else if (gameResult == 2) {
         $winnerTitle.innerHTML = 'Jogadora 2 ganhou!'
-        score2 = score2 + 1
-        if (score2 <10){
-            $scorePlayer2.innerHTML = "0" + score2 
-        }else {
-            $scorePlayer2.innerHTML = score2
-        }
     } else {
         $winnerTitle.innerHTML = 'Resultado'
     }
 }
 
-$stoneButton1.addEventListener('click', function (){
-    $fieldPlayer1.innerHTML = '<img class="move-image" alt="pedra" src="./stone.png" />'
-    movePlayer1 ='stone'
-    verifyGame()
-    printGameResult()
-})
-$paperButton1.addEventListener('click', function (){
-    $fieldPlayer1.innerHTML = '<img class="move-image" alt="Papel" src="paper.png"/>'
-    movePlayer1 ='paper'
-    verifyGame()
-    printGameResult()
-})
-$scissorsButton1.addEventListener('click',function (){
-    $fieldPlayer1.innerHTML = '<img class="move-image" alt="Tesoura" src="scissors.png"/>'
-    movePlayer1 ='scissors'
-    verifyGame()
-    printGameResult()
-})
+function printScore () {
+    if (score1 <10) {
+        $scorePlayer1.innerHTML = '0' + score1
+    } else {
+        $scorePlayer1.innerHTML = score1
+    }
+    if (score2 <10) {
+        $scorePlayer2.innerHTML = '0' + score2
+    } else {
+        $scorePlayer2.innerHTML = score2
+    }
+}
 
-$stoneButton2.addEventListener('click', function (){
-    $fieldPlayer2.innerHTML = '<img class="move-image" alt="pedra" src="./stone.png" />'
-    movePlayer2 ='stone'
-    verifyGame()
-    printGameResult()
-})
-$paperButton2.addEventListener('click', function (){
-    $fieldPlayer2.innerHTML = '<img class="move-image" alt="Papel" src="paper.png"/>'
-    movePlayer2 ='paper'
-    verifyGame()
-    printGameResult()
-})
-$scissorsButton2.addEventListener('click',function (){
-    $fieldPlayer2.innerHTML = '<img class="move-image" alt="Tesoura" src="scissors.png"/>'
-    movePlayer2 ='scissors'
-    verifyGame()
-    printGameResult()
-})
+function addPoint(winnerPoint) {
+    if (winnerPoint == 1) {
+        score1 += 1
+    }
+    if (winnerPoint == 2) {
+        score2 += 1
+    }
 
+}
 
-
-$restartsButton.addEventListener('click',function (){
-    $winnerTitle.innerHTML = "Resultado"
+function resetBattlesField () {
     $fieldPlayer1.innerHTML = '';
     $fieldPlayer2.innerHTML = '';
+}
+
+function resetScoreBoard(){
     $scorePlayer1.innerHTML = '00'
     $scorePlayer2.innerHTML = '00'
+}
 
+function resetMoveVariables () {
+    movePlayer1 = ''
+    movePlayer2 = ''
+}
+
+function resetScoreVariables(){
+    score1 = 0
+    score2 = 0
+}
+
+function resetButtonStart () {
+    $startsButton.innerHTML = 'Iniciar'
+    $startsButton.classList.remove('start')
+    gameStart = false
+}
+
+
+function move(moveName, field) {
+    if (gameStart) {
+        if (field == 1){
+            $fieldPlayer1.innerHTML = '<img class="move-image" src="./img/' + moveName + '.png"/>'
+            movePlayer1 = moveName
+        } else if (field == 2) {
+            $fieldPlayer2.innerHTML = '<img class="move-image" src="./img/' + moveName + '.png"/>'
+            movePlayer2 = moveName
+        }
+        verifyGame()
+        printGameResult()
+        if (gameResult != null){
+            setTimeout (resetBattlesField, 1500)
+            resetMoveVariables ()
+            addPoint (gameResult)
+            printScore ()
+            gameResult = null
+        }
+    }
+}
+
+$stoneButton1.addEventListener('click', function (){
+    move('stone', 1)
+})
+
+$paperButton1.addEventListener('click', function (){
+    move ('paper', 1)
+})
+
+$scissorsButton1.addEventListener('click',function (){
+    move('scissors', 1)
+}) 
+
+$stoneButton2.addEventListener('click', function (){
+    move('stone', 2)
+})
+$paperButton2.addEventListener('click', function (){
+    move('paper', 2)
+})
+$scissorsButton2.addEventListener('click',function (){
+    move('scissors', 2)
+})
+
+$restartsButton.addEventListener('click',function (){
+    resetBattlesField()
+    resetMoveVariables ()
+    resetScoreBoard ()
+    resetScoreVariables()
+    gameResult = null
+    $winnerTitle.innerHTML = "Resultado"
+    resetButtonStart ()
     // location.reload()
+})
+
+$startsButton.addEventListener('click', function() {
+    gameStart = !gameStart
+    $startsButton.classList.toggle('start')
+    if (gameStart) {
+        $startsButton.innerHTML = 'Pausar'
+    } else {
+        $startsButton.innerHTML = 'Iniciar'
+    }
+    
 })
 

@@ -140,3 +140,13 @@ body {
     /* transform: rotate(180deg); */
     transform: scalex(-1);
 } 
+
+.start {
+    background-color: #7b1ba1;
+    box-shadow: 0 0 10px 5px #497c912d;
+}
+
+.start:hover {
+    background-color: #7b1ba17c;
+;
+}
